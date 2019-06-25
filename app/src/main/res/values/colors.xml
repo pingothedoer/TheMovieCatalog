@@ -1,6 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#62D6C6</color>
+    <color name="colorDisabled">#B2B2B2</color>
+    <color name="colorSuccess">#00CE5E</color>
+    <color name="colorError">#E74C3C</color>
+    <color name="colorWarning">#FF9F00</color>
+
+    <color name="colorAccentOpc">#66FE2C55</color>
+    <color name="colorAccentPressed">#66FE2C55</color>
+    <color name="backgroundLight">#607D8B</color>
+    <color name="transparent">#00000000</color>
+    <color name="dividerColor">#7f94ad</color>
+
+    <color name="colorErrorButton">#e74c3c</color>
+    <color name="colorErrorButtonPressed">#66e74c3c</color>
+
+    <!--Text-->
+    <color name="colorTextHint">#817f94ad</color>
+    <color name="editTextColor">#CCF2F2F2</color>
+    <color name="colorTextWhiteOpc">#66F2F2F2</color>
+    <color name="colorTextHeading">#1d2029</color>
+    <color name="colorTextWhite">#FFF2F2F2</color>
+    <color name="text_shadow">#40000000</color>
+
+
+    <!--Colors-->
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="dark_gray">#314054</color>
+    <color name="LightSlateGray">#778899</color>
+    <color name="light_gray_opac">#4D778899</color>
+
+
+    <!--100% — FF-->
+    <!--95% — F2-->
+    <!--90% — E6-->
+    <!--85% — D9-->
+    <!--80% — CC-->
+    <!--75% — BF-->
+    <!--70% — B3-->
+    <!--65% — A6-->
+    <!--60% — 99-->
+    <!--55% — 8C-->
+    <!--50% — 80-->
+    <!--45% — 73-->
+    <!--40% — 66-->
+    <!--35% — 59-->
+    <!--30% — 4D-->
+    <!--25% — 40-->
+    <!--20% — 33-->
+    <!--15% — 26-->
+    <!--10% — 1A-->
+    <!--5% — 0D-->
+    <!--0% — 00-->
 </resources>
