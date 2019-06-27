@@ -1,0 +1,10 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="app_bar_height">220dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="launchscreens_product_logo_bottom">16dp</dimen>
+    <dimen name="toolbar_padding">24dp</dimen>
+    <dimen name="recyclerview_offset">100dp</dimen>
+    <dimen name="toolbar_logo_padding">10dp</dimen>
+
+</resources>

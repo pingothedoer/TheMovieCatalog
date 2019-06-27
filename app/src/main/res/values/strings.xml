@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">TheMovieCatalog</string>
+    <string name="app_name">The Movie Catalog</string>
+    <string name="trailer">Trailer</string>
+    <string name="filter">Filter</string>
+    <string name="app_logo_at_toolbar">App logo at toolbar</string>
+    <string name="backdrop_image">Backdrop Image</string>
 </resources>
