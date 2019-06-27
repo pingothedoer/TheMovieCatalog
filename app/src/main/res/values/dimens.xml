@@ -6,5 +6,6 @@
     <dimen name="toolbar_padding">24dp</dimen>
     <dimen name="recyclerview_offset">100dp</dimen>
     <dimen name="toolbar_logo_padding">10dp</dimen>
+    <dimen name="progress_dialog_height">72dp</dimen>
 
 </resources>

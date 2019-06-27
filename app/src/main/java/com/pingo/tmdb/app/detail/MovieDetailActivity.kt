@@ -9,6 +9,7 @@ import com.pingo.tmdb.shared.ext.inTransaction
 import com.pingo.tmdb.shared.ext.setFullscreen
 import com.pingo.tmdb.shared.models.Movie
 
+
 /**
  * Created By : Muhammad Ali Ansari
  * Dated :  2019-06-26.

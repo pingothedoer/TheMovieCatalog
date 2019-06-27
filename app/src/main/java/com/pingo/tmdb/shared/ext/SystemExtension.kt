@@ -4,9 +4,11 @@ package com.pingo.tmdb.shared.ext
 
 import android.app.Activity
 import android.graphics.Color
+import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 
@@ -14,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction
  * Created by : Muhammad Ali Ansari
  * Dated :  2019-06-26.
  * ----------------------------------------------
+ *
  * Extension methods
  */
 
@@ -47,5 +50,13 @@ inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Fragmen
     beginTransaction().func().commit()
 }
 
-
+/**
+ * Put extras in bundle arguments
+ * @receiver Fragment
+ * @param bundle [@kotlin.ExtensionFunctionType] Function1<Bundle, Unit>
+ * @return Fragment
+ */
+inline fun Fragment.args(bundle: Bundle.() -> Unit) = apply {
+    arguments = Bundle().apply(bundle)
+}
 
