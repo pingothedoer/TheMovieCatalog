@@ -32,12 +32,12 @@ class MoviesCatalogRepo(private val apiService: MovieListService) {
     fun getMovies(isFiltered: Boolean, time: Long?, page: Int = 1): Observable<MoviesCatalog> {
 
         if (isFiltered) {
-            releasedTill = DateUtil.getFormattedDate(time)
             releasedFrom = DateUtil.getFormattedDate(time)
+            releasedTill = DateUtil.getFormattedDate(time)
         } else {
+            releasedFrom = ""
             releasedTill = DateUtil.getFormattedDate()
         }
-
 
         return apiService.getMovies(
             Params.Values.LANGUAGE_EN_US,
