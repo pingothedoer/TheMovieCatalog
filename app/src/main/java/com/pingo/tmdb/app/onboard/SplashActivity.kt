@@ -16,7 +16,7 @@ import com.pingo.tmdb.app.movies.MoviesCatalogActivity
  */
 class SplashActivity : AppCompatActivity() {
 
-    private val startDelay = 3000L
+    private val startDelay = 1000L
     private var handler: Handler? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

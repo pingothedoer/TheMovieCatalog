@@ -108,6 +108,10 @@ dependencies {
     implementation "androidx.multidex:multidex:${rootProject.multidex}"
     compileOnly "org.glassfish:javax.annotation:${rootProject.javax}"
     testImplementation "junit:junit:${rootProject.junit}"
+
+    // Espresso
     androidTestImplementation "androidx.test:runner:${rootProject.testRunner}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${rootProject.espresso}"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:${rootProject.espresso}"
+    androidTestImplementation 'androidx.test:rules:1.3.0-alpha01'
 }
