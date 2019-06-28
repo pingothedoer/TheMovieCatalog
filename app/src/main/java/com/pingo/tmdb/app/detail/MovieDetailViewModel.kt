@@ -7,8 +7,9 @@ import com.pingo.tmdb.app.App
 import com.pingo.tmdb.shared.models.MovieDetail
 import com.pingo.tmdb.shared.models.ProgressModel
 import com.pingo.tmdb.shared.ui.BaseViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -16,11 +17,13 @@ import javax.inject.Inject
  * Dated :  2019-06-26.
  * ----------------------------------------------
  *
- * Bridging [MovieDetailFragment] and Data Source [MovieDetailRepo]
+ * Bridging [MovieDetailFragment] and Data Source [MovieDetailRepoImp]
  */
-open class MovieDetailViewModel @Inject constructor(private val repo: MovieDetailRepo, context: App) :
+open class MovieDetailViewModel @Inject constructor(private val repo: MovieDetailRepoImp, context: App) :
     BaseViewModel(context) {
 
+
+    private val scope = CoroutineScope(Dispatchers.Default)
 
     var movieId: String? = null
     val movieDetail: MutableLiveData<MovieDetail> = MutableLiveData()
@@ -28,22 +31,29 @@ open class MovieDetailViewModel @Inject constructor(private val repo: MovieDetai
     @SuppressLint("CheckResult")
     fun getMovieDetails() {
 
-        repo.getMovies(movieId!!)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe {
+        scope.launch {
+            try {
+
                 showProgress.postValue(
                     ProgressModel(
-                        title = getString(R.string.fetching_movies),
+                        title = getString(R.string.fetching_movie_details),
                         message = getString(R.string.please_wait)
                     )
                 )
+
+                val response = repo.getMovies(movieId!!)
+                when {
+                    response.isSuccessful -> {
+                        movieDetail.postValue(response.body())
+                        showProgress.postValue(ProgressModel(show = false))
+                    }
+                    else -> onBaseError(response.errorBody())
+                }
+
+            } catch (exp: Exception) {
+                onBaseError(exp)
             }
-            .doOnTerminate { showProgress.postValue(ProgressModel(show = false)) }
-            .subscribe(
-                { result -> movieDetail.postValue(result) },
-                { error -> onBaseError(error) }
-            )
+        }
 
     }
 

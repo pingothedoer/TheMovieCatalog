@@ -8,17 +8,11 @@ import com.pingo.tmdb.shared.network.interceptor.ApiKeyInterceptor
 import com.pingo.tmdb.shared.network.interceptor.ConnectivityInterceptor
 import dagger.Module
 import dagger.Provides
-import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
-import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
 
 
 /**
@@ -47,7 +41,6 @@ class NetworkModule {
     fun provideRetrofit(httpClient: OkHttpClient) = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(MoshiConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
         .client(httpClient)
         .build()!!
 

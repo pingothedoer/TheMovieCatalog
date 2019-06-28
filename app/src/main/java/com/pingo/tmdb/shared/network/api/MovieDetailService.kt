@@ -2,7 +2,7 @@ package com.pingo.tmdb.shared.network.api
 
 
 import com.pingo.tmdb.shared.models.MovieDetail
-import io.reactivex.Observable
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -17,9 +17,9 @@ import retrofit2.http.Query
 interface MovieDetailService {
 
     @GET("movie/{".plus(Params.Keys.MOVIE_ID).plus("}"))
-    fun getMovie(
+    suspend fun getMovie(
         @Path(Params.Keys.MOVIE_ID) movieId: String,
         @Query(Params.Keys.LANGUAGE) language: String,
         @Query(Params.Keys.APPEND_RESPONSE) appendData: String
-    ): Observable<MovieDetail>
+    ): Response<MovieDetail>
 }

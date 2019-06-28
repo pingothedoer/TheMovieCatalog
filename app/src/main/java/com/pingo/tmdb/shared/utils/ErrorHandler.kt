@@ -43,4 +43,17 @@ object ErrorHandler {
         return context.getString(R.string.error_unknown)
     }
 
+
+    /**
+     * Parse error using [ErrorUtil] Moshi converters
+     */
+    fun getError(context: Context, error: String?): String {
+        return try {
+            val errors: BaseError? = ErrorUtil(BaseError::class.java).getError(error)
+            errors?.statusMessage ?: context.getString(R.string.error_unknown)
+        } catch (exp: Exception) {
+            context.getString(R.string.error_unknown)
+        }
+    }
+
 }

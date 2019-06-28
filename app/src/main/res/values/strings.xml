@@ -32,6 +32,7 @@
     <string name="overview">Overview</string>
     <string name="error_unknown">Something went wrong. Please try later.</string>
     <string name="fetching_movies">Exploring Movies Catalog</string>
+    <string name="fetching_movie_details">Fetching Movie Details</string>
     <string name="please_wait">Please Wait</string>
     <string name="more_info">More Info</string>
     <string name="user_score">User Score</string>

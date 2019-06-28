@@ -4,9 +4,7 @@ import com.pingo.tmdb.shared.models.MoviesCatalog
 import com.pingo.tmdb.shared.network.api.MovieListService
 import com.pingo.tmdb.shared.network.api.Params
 import com.pingo.tmdb.shared.utils.DateUtil
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import retrofit2.Response
 
 /**
  * Created By : Muhammad Ali Ansari
@@ -16,11 +14,20 @@ import io.reactivex.schedulers.Schedulers
  * Bridge between Data Source (Cloud/LocalDB) and the View Model
  * Fetches movies list and sends it to the view model
  **/
-class MoviesCatalogRepo(private val apiService: MovieListService) {
 
+interface MoviesCatalogRepo {
+    /**
+     * Fetch movies from The Movie DB
+     * @param isFiltered Boolean
+     * @param time Long?
+     * @param page Int
+     * @return Observable<MoviesCatalog>
+     */
+    suspend fun getMovies(isFiltered: Boolean, time: Long?, page: Int = 1): Response<MoviesCatalog>
+}
 
-    var releasedTill = ""
-    var releasedFrom = ""
+class MoviesCatalogRepoImp(private val apiService: MovieListService) : MoviesCatalogRepo {
+
 
     /**
      * Fetch movies from The Movie DB
@@ -29,14 +36,20 @@ class MoviesCatalogRepo(private val apiService: MovieListService) {
      * @param page Int
      * @return Observable<MoviesCatalog>
      */
-    fun getMovies(isFiltered: Boolean, time: Long?, page: Int = 1): Observable<MoviesCatalog> {
+    override suspend fun getMovies(isFiltered: Boolean, time: Long?, page: Int): Response<MoviesCatalog> {
 
-        if (isFiltered) {
-            releasedFrom = DateUtil.getFormattedDate(time)
-            releasedTill = DateUtil.getFormattedDate(time)
-        } else {
-            releasedFrom = ""
-            releasedTill = DateUtil.getFormattedDate()
+        val releasedTill: String
+        val releasedFrom: String
+
+        when {
+            isFiltered -> {
+                releasedFrom = DateUtil.getFormattedDate(time)
+                releasedTill = DateUtil.getFormattedDate(time)
+            }
+            else -> {
+                releasedFrom = ""
+                releasedTill = DateUtil.getFormattedDate()
+            }
         }
 
         return apiService.getMovies(
@@ -49,8 +62,7 @@ class MoviesCatalogRepo(private val apiService: MovieListService) {
             includeVideo = true,
             voteAverage = 1,
             page = page
-        ).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        )
     }
 
 }

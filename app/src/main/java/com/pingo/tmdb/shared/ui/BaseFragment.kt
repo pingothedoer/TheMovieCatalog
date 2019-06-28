@@ -1,7 +1,6 @@
 package com.pingo.tmdb.shared.ui
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.DaggerFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.reflect.KClass
 
@@ -40,7 +43,7 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel>(@LayoutRes pri
     protected lateinit var binding: VB
 
     abstract val viewModelClass: KClass<VM>
-    var progressDialog: Progress? = null
+    private var progressDialog: Progress? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, layout, container, false)
@@ -52,18 +55,27 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel>(@LayoutRes pri
         viewModelObj = ViewModelProviders.of(this, viewModelFactory).get(viewModelClass.java)
     }
 
+    /**
+     * Show progress dialog
+     * @param title String
+     * @param message String
+     */
     fun startProgress(title: String, message: String) {
-        if (progressDialog != null) {
-            progressDialog?.dismiss()
+        when {
+            progressDialog != null -> progressDialog?.dismiss()
         }
         progressDialog = Progress.show(fragmentManager!!, title, message)
     }
 
-
+    /**
+     * dismiss dialog after at least 1 sec delay
+     */
     fun stopProgress() {
-        if (progressDialog != null) {
-            // dismiss dialog after at least 1 sec delay
-            Handler().postDelayed({ progressDialog?.dismiss() }, 1000L)
+        when {
+            progressDialog != null -> CoroutineScope(Dispatchers.Main).launch {
+                delay(1000L)
+                progressDialog?.dismiss()
+            }
         }
     }
 

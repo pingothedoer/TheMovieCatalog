@@ -3,6 +3,7 @@ package com.pingo.tmdb.app.movies
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.widget.DatePicker
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -52,8 +53,8 @@ class MoviesCatalogFragment :
             val lastVisible = layoutManager.findLastCompletelyVisibleItemPosition()
 
             val endHasBeenReached = lastVisible + 1 >= totalItemCount
-            if (totalItemCount > 0 && endHasBeenReached) {
-                viewModelObj.fetchMovies()
+            when {
+                totalItemCount > 0 && endHasBeenReached -> viewModelObj.fetchMovies()
             }
         }
     }
@@ -105,16 +106,29 @@ class MoviesCatalogFragment :
         })
 
 
+        // listen for connection error
+        viewModelObj.connectionError.observe(
+            this,
+            Observer { Toast.makeText(activity!!, "Connection Error", Toast.LENGTH_LONG).show() })
+
+
+        // listen for  error
+        viewModelObj.errorMessage.observe(
+            this,
+            Observer { Toast.makeText(activity!!, it, Toast.LENGTH_LONG).show() })
+
+
         // filter movies or not
         viewModelObj.filterMovies.observe(this, Observer {
-            if (it) {
-                DatePickerFragment.newInstance(this).also { dialog ->
+            when {
+                it -> DatePickerFragment.newInstance(this).also { dialog ->
                     dialog.show(childFragmentManager, "")
                 }
-            } else {
-                fab.resetFilter()
-                movesAdapter.clearResults()
-                viewModelObj.removeFilter()
+                else -> {
+                    fab.resetFilter()
+                    movesAdapter.clearResults()
+                    viewModelObj.removeFilter()
+                }
             }
         })
 
@@ -133,7 +147,6 @@ class MoviesCatalogFragment :
         movesAdapter.clearResults()
         viewModelObj.setFilter(year, month, dayOfMonth)
     }
-
 
 
     /**

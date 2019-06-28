@@ -3,6 +3,8 @@ package com.pingo.tmdb.app.detail
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.google.android.material.chip.Chip
 import com.pingo.tmdb.R
 import com.pingo.tmdb.databinding.FragmentMovieDetailBinding
@@ -75,9 +77,30 @@ class MovieDetailFragment :
      * Start listening [androidx.lifecycle.Observer]
      */
     private fun initObservables() {
-        viewModelObj.movieDetail.observe(this, androidx.lifecycle.Observer {
+        viewModelObj.movieDetail.observe(this, Observer {
             populateViews(it)
         })
+
+        // listen for connection error
+        viewModelObj.connectionError.observe(
+            this,
+            Observer { Toast.makeText(activity!!, "Connection Error", Toast.LENGTH_LONG).show() })
+
+
+        // listen for  error
+        viewModelObj.errorMessage.observe(
+            this,
+            Observer { Toast.makeText(activity!!, it, Toast.LENGTH_LONG).show() })
+
+        // listen for  progress
+        viewModelObj.showProgress.observe(
+            this,
+            Observer {
+                when {
+                    it.show -> startProgress(it.title, it.message)
+                    else -> stopProgress()
+                }
+            })
     }
 
 
@@ -86,8 +109,8 @@ class MovieDetailFragment :
      * @param detail MovieDetail
      */
     private fun populateViews(detail: MovieDetail) {
-        if (!detail.videos.results.isNullOrEmpty()) {
-            key = detail.videos.results[0].key
+        when {
+            !detail.videos.results.isNullOrEmpty() -> key = detail.videos.results[0].key
         }
 
         tv_overview_title.text = getString(R.string.overview)
@@ -98,6 +121,10 @@ class MovieDetailFragment :
             DateUtil.getFormattedDate(detail.releaseDate ?: System.currentTimeMillis().toString())
         )
         tv_rating.text = getString(R.string.placeholder_rating, detail.voteAverage.toString())
+
+            // Load image
+
+        // add genres chips
 
         // Load image
         img_backdrop.showImage(url = detail.backdropPath)

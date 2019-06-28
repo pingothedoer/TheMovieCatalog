@@ -2,7 +2,7 @@ package com.pingo.tmdb.shared.network.api
 
 
 import com.pingo.tmdb.shared.models.MoviesCatalog
-import io.reactivex.Observable
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -16,7 +16,7 @@ import retrofit2.http.Query
 interface MovieListService {
 
     @GET("discover/movie")
-    fun getMovies(
+    suspend fun getMovies(
         @Query(Params.Keys.LANGUAGE) language: String,
         @Query(Params.Keys.ORIGINAL_LANGUAGE) originalLanguage: String,
         @Query(Params.Keys.SORT_BY) sortBy: String,
@@ -26,5 +26,5 @@ interface MovieListService {
         @Query(Params.Keys.INCLUDE_VIDEO) includeVideo: Boolean,
         @Query(Params.Keys.VOTE_AVG) voteAverage: Int,
         @Query(Params.Keys.PAGE) page: Int
-    ): Observable<MoviesCatalog>
+    ): Response<MoviesCatalog>
 }

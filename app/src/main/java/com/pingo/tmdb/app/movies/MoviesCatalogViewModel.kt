@@ -2,13 +2,12 @@ package com.pingo.tmdb.app.movies
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
-import com.pingo.tmdb.R
 import com.pingo.tmdb.app.App
 import com.pingo.tmdb.shared.models.Movie
-import com.pingo.tmdb.shared.models.ProgressModel
 import com.pingo.tmdb.shared.ui.BaseViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
@@ -19,7 +18,7 @@ import javax.inject.Inject
  *
  * Bridging [MoviesCatalogFragment] and Data Source [MoviesCatalogRepo]
  */
-open class MoviesCatalogViewModel @Inject constructor(private val repo: MoviesCatalogRepo, context: App) :
+open class MoviesCatalogViewModel @Inject constructor(private val repo: MoviesCatalogRepoImp, context: App) :
     BaseViewModel(context) {
 
     private var pageNumber = 1
@@ -29,32 +28,27 @@ open class MoviesCatalogViewModel @Inject constructor(private val repo: MoviesCa
     val movies: MutableLiveData<List<Movie>> = MutableLiveData()
     val filterMovies: MutableLiveData<Boolean> = MutableLiveData()
 
+    private val scope = CoroutineScope(Dispatchers.Default)
 
     /**
      * Fetching movies catalog for the given time range.
      */
-    @SuppressLint("CheckResult")
     fun fetchMovies() {
+        scope.launch {
+            try {
+                val response = repo.getMovies(isFiltered, filteredDate, pageNumber)
+                when {
+                    response.isSuccessful -> {
+                        pageNumber++
+                        movies.postValue(response.body()?.results)
+                    }
+                    else -> onBaseError(response.errorBody())
+                }
 
-        repo.getMovies(isFiltered, filteredDate, pageNumber)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe {
-                showProgress.postValue(
-                    ProgressModel(
-                        title = getString(R.string.fetching_movies),
-                        message = getString(R.string.please_wait)
-                    )
-                )
+            } catch (exp: Exception) {
+                onBaseError(exp)
             }
-            .doOnTerminate { showProgress.postValue(ProgressModel(show = false)) }
-            .subscribe(
-                { result ->
-                    pageNumber++
-                    movies.postValue(result.results)
-                },
-                { error -> onBaseError(error) }
-            )
+        }
     }
 
 
