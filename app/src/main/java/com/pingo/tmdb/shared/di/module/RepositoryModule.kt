@@ -1,9 +1,7 @@
 package com.pingo.tmdb.shared.di.module
 
-import com.pingo.tmdb.app.detail.MovieDetailRepo
-import com.pingo.tmdb.app.detail.MovieDetailRepoImp
-import com.pingo.tmdb.app.movies.MoviesCatalogRepo
-import com.pingo.tmdb.app.movies.MoviesCatalogRepoImp
+import com.pingo.tmdb.app.detail.data.MovieDetailRepoImp
+import com.pingo.tmdb.app.movies.data.MoviesCatalogRepoImp
 import com.pingo.tmdb.shared.network.api.MovieDetailService
 import com.pingo.tmdb.shared.network.api.MovieListService
 import dagger.Module
@@ -25,11 +23,13 @@ class RepositoryModule {
      */
     @Reusable
     @Provides
-    fun provideMovieListRepo(apiService: MovieListService) = MoviesCatalogRepoImp(apiService)
+    fun provideMovieListRepo(apiService: MovieListService) =
+        MoviesCatalogRepoImp(apiService)
 
     @Reusable
     @Provides
-    fun provideMovieDetailRepo(apiService: MovieDetailService) = MovieDetailRepoImp(apiService)
+    fun provideMovieDetailRepo(apiService: MovieDetailService) =
+        MovieDetailRepoImp(apiService)
 
 
 }

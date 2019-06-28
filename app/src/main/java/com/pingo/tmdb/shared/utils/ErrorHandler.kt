@@ -1,7 +1,5 @@
 package com.pingo.tmdb.shared.utils
 
-import android.content.Context
-import com.pingo.tmdb.R
 import com.pingo.tmdb.shared.models.BaseError
 import com.pingo.tmdb.shared.network.exception.InternetException
 import retrofit2.HttpException
@@ -20,11 +18,12 @@ import java.net.UnknownHostException
 object ErrorHandler {
 
     const val INTERNET_ERROR = "net"
+    const val UNKNOWN_ERROR = "Something went wrong. Please try later."
 
     /**
      * Parse error using [ErrorUtil] Moshi converters
      */
-    fun getError(context: Context, error: Throwable?): String {
+    fun getError(error: Throwable?): String {
 
         try {
             when (error) {
@@ -33,26 +32,26 @@ object ErrorHandler {
                 is HttpException -> {
                     val errorBody = error.response()?.errorBody()?.string()
                     val errors: BaseError? = ErrorUtil(BaseError::class.java).getError(errorBody)
-                    return errors?.statusMessage ?: context.getString(R.string.error_unknown)
+                    return errors?.statusMessage ?: UNKNOWN_ERROR
                 }
             }
         } catch (exp: Exception) {
             error?.printStackTrace()
-            return context.getString(R.string.error_unknown)
+            return UNKNOWN_ERROR
         }
-        return context.getString(R.string.error_unknown)
+        return UNKNOWN_ERROR
     }
 
 
     /**
      * Parse error using [ErrorUtil] Moshi converters
      */
-    fun getError(context: Context, error: String?): String {
+    fun getError(error: String?): String {
         return try {
             val errors: BaseError? = ErrorUtil(BaseError::class.java).getError(error)
-            errors?.statusMessage ?: context.getString(R.string.error_unknown)
+            errors?.statusMessage ?: UNKNOWN_ERROR
         } catch (exp: Exception) {
-            context.getString(R.string.error_unknown)
+            UNKNOWN_ERROR
         }
     }
 

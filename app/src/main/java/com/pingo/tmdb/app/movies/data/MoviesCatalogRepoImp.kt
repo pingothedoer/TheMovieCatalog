@@ -1,4 +1,4 @@
-package com.pingo.tmdb.app.movies
+package com.pingo.tmdb.app.movies.data
 
 import com.pingo.tmdb.shared.models.MoviesCatalog
 import com.pingo.tmdb.shared.network.api.MovieListService
@@ -11,23 +11,11 @@ import retrofit2.Response
  * Dated :  2019-06-26.
  * ---------------------------------------------
  *
- * Bridge between Data Source (Cloud/LocalDB) and the View Model
+ * Implementation of [MoviesCatalogRepo], Bridge between Data Source (Cloud/LocalDB) and the View Model
  * Fetches movies list and sends it to the view model
  **/
 
-interface MoviesCatalogRepo {
-    /**
-     * Fetch movies from The Movie DB
-     * @param isFiltered Boolean
-     * @param time Long?
-     * @param page Int
-     * @return Observable<MoviesCatalog>
-     */
-    suspend fun getMovies(isFiltered: Boolean, time: Long?, page: Int = 1): Response<MoviesCatalog>
-}
-
-class MoviesCatalogRepoImp(private val apiService: MovieListService) : MoviesCatalogRepo {
-
+open class MoviesCatalogRepoImp(private val apiService: MovieListService) : MoviesCatalogRepo {
 
     /**
      * Fetch movies from The Movie DB

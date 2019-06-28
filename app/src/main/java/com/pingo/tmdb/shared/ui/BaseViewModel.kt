@@ -2,7 +2,6 @@ package com.pingo.tmdb.shared.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.pingo.tmdb.app.App
 import com.pingo.tmdb.shared.models.ProgressModel
 import com.pingo.tmdb.shared.utils.ErrorHandler
 import okhttp3.ResponseBody
@@ -14,7 +13,7 @@ import okhttp3.ResponseBody
  * @property connectionError MutableLiveData<Boolean>
  * @constructor
  */
-abstract class BaseViewModel(var context: App) : ViewModel() {
+abstract class BaseViewModel() : ViewModel() {
 
     /**
      * controls progress dialog with [ProgressModel]
@@ -38,7 +37,7 @@ abstract class BaseViewModel(var context: App) : ViewModel() {
      */
     protected open fun onBaseError(error: Throwable?) {
         showProgress.postValue(ProgressModel(show = false))
-        when (val errorStr = ErrorHandler.getError(context, error)) {
+        when (val errorStr = ErrorHandler.getError(error)) {
             ErrorHandler.INTERNET_ERROR -> connectionError.postValue(true)
             else -> errorMessage.postValue(errorStr)
         }
@@ -50,15 +49,8 @@ abstract class BaseViewModel(var context: App) : ViewModel() {
      */
     protected open fun onBaseError(error: ResponseBody?) {
         showProgress.postValue(ProgressModel(show = false))
-        val errorStr = ErrorHandler.getError(context, error?.string())
+        val errorStr = ErrorHandler.getError(error?.string())
         errorMessage.postValue(errorStr)
     }
-
-    /**
-     * Get string value from strings.xml file
-     * @param strResId Int
-     * @return String
-     */
-    protected fun getString(strResId: Int): String = context.getString(strResId)
 
 }

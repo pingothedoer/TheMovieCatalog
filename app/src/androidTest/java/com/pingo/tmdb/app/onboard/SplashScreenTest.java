@@ -1,4 +1,4 @@
-package com.pingo.tmdb.app;
+package com.pingo.tmdb.app.onboard;
 
 
 import android.content.Intent;
@@ -6,14 +6,13 @@ import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.IdlingResource;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
 import com.pingo.tmdb.app.movies.MoviesCatalogActivity;
-import com.pingo.tmdb.app.onboard.SplashActivity;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
@@ -23,10 +22,10 @@ import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
  * Created by : Muhammad Ali Ansari
  * Dated :  2019-06-27.
  * ----------------------------------------------
- *
+ * <p>
  * Test for Splash Activity
  */
-@RunWith(AndroidJUnit4.class)
+@RunWith(JUnit4.class)
 public class SplashScreenTest {
 
     @Rule

@@ -1,4 +1,4 @@
-package com.pingo.tmdb.app.detail
+package com.pingo.tmdb.app.detail.data
 
 import com.pingo.tmdb.shared.models.MovieDetail
 import com.pingo.tmdb.shared.network.api.MovieDetailService
@@ -10,18 +10,9 @@ import retrofit2.Response
  * Dated :  2019-06-26.
  * ---------------------------------------------
  *
- * Bridge between Data Source (Cloud/LocalDB) and the View Model
+ * Implementation of [MovieDetailRepo] , Bridge between Data Source (Cloud/LocalDB) and the View Model
  * Fetches movie details and sends it to the view model
  **/
-
-interface MovieDetailRepo {
-    /**
-     * Fetch movie details from THE MOVIE DB
-     * @param movieId String
-     * @return Response<MovieDetail>
-     */
-    suspend fun getMovies(movieId: String): Response<MovieDetail>
-}
 
 class MovieDetailRepoImp(private val apiService: MovieDetailService) : MovieDetailRepo {
 

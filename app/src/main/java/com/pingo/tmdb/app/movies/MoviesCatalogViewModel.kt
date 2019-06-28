@@ -1,8 +1,7 @@
 package com.pingo.tmdb.app.movies
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
-import com.pingo.tmdb.app.App
+import com.pingo.tmdb.app.movies.data.MoviesCatalogRepoImp
 import com.pingo.tmdb.shared.models.Movie
 import com.pingo.tmdb.shared.ui.BaseViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -11,15 +10,16 @@ import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
+
 /**
  * Created by : Muhammad Ali Ansari
  * Dated :  2019-06-26.
  * ----------------------------------------------
  *
- * Bridging [MoviesCatalogFragment] and Data Source [MoviesCatalogRepo]
+ * Bridging [MoviesCatalogFragment] and Data Source [MoviesCatalogRepoImp]
  */
-open class MoviesCatalogViewModel @Inject constructor(private val repo: MoviesCatalogRepoImp, context: App) :
-    BaseViewModel(context) {
+open class MoviesCatalogViewModel @Inject constructor(private val repo: MoviesCatalogRepoImp) :
+    BaseViewModel() {
 
     private var pageNumber = 1
     private var filteredDate = System.currentTimeMillis()
@@ -28,7 +28,11 @@ open class MoviesCatalogViewModel @Inject constructor(private val repo: MoviesCa
     val movies: MutableLiveData<List<Movie>> = MutableLiveData()
     val filterMovies: MutableLiveData<Boolean> = MutableLiveData()
 
+    /**
+     * Coroutine scope
+     */
     private val scope = CoroutineScope(Dispatchers.Default)
+
 
     /**
      * Fetching movies catalog for the given time range.

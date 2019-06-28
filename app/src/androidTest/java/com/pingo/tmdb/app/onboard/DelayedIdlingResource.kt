@@ -1,4 +1,4 @@
-package com.pingo.tmdb.app
+package com.pingo.tmdb.app.onboard
 
 import androidx.test.espresso.IdlingResource
 
