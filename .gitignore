@@ -9,9 +9,6 @@ build/
 local.properties
 
 
-# Android Studio captures folder
-captures/
-
 # IntelliJ
 *.iml
 

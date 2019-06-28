@@ -16,6 +16,7 @@
 
         <activity
                 android:name="com.pingo.tmdb.app.onboard.SplashActivity"
+                android:screenOrientation="portrait"
                 android:theme="@style/SplashTheme">
 
             <intent-filter>
@@ -28,9 +29,11 @@
 
 
         <activity android:name=".app.detail.MovieDetailActivity"
+                  android:screenOrientation="portrait"
                   android:theme="@style/CollapsingTheme"/>
 
         <activity android:name=".app.movies.MoviesCatalogActivity"
+                  android:screenOrientation="portrait"
                   android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>

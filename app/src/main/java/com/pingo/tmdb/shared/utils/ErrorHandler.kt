@@ -31,7 +31,7 @@ object ErrorHandler {
                 is InternetException, is UnknownHostException, is SocketTimeoutException -> return INTERNET_ERROR
                 is IOException -> error.message?.let { return it }
                 is HttpException -> {
-                    val errorBody = error.response().errorBody()?.string()
+                    val errorBody = error.response()?.errorBody()?.string()
                     val errors: BaseError? = ErrorUtil(BaseError::class.java).getError(errorBody)
                     return errors?.statusMessage ?: context.getString(R.string.error_unknown)
                 }

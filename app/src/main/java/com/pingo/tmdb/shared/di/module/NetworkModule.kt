@@ -69,33 +69,6 @@ class NetworkModule {
             .addInterceptor(ApiKeyInterceptor())
             .connectTimeout(CONNECTION_TIMEOUT_MS.toLong(), TimeUnit.MILLISECONDS)
 
-        try {
-            val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
-                override fun getAcceptedIssuers(): Array<X509Certificate?> {
-                    return arrayOfNulls(0)
-                }
-
-                override fun checkClientTrusted(certs: Array<X509Certificate>, authType: String) {}
-
-                override fun checkServerTrusted(certs: Array<X509Certificate>, authType: String) {}
-            })
-
-
-            val sc: SSLContext? = SSLContext.getInstance("TLS")
-            sc!!.init(null, trustAllCerts, java.security.SecureRandom())
-
-            userHttpClientBuilder.sslSocketFactory(sc.socketFactory)
-            userHttpClientBuilder.hostnameVerifier { hostname, _ ->
-                !hostname.equals(
-                    "www.google.com",
-                    ignoreCase = true
-                )
-            }
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
         return userHttpClientBuilder.build()
     }
 }
