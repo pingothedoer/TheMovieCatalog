@@ -12,11 +12,9 @@ Android App Querying TMDb API to provide information on popular, trending, upcom
  2. **Configure build.gradle**
  
     Once you have your TMDB key,you will need to add it in the `app` module `build.gradle`. Change the following line with your own API key and sync the project. 
-    ```groovy
-    
-    buildConfigField "String", "API_KEY", '"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"'
-    
-    ```
+
+            buildConfigField "String", "API_KEY", '"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"'
+
 
 ### Screenshots
 
