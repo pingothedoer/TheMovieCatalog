@@ -1,4 +1,5 @@
 # TheMovieCatalog
+[![Logo](app/src/main/res/drawable-hdpi/ic_app.png)]()
 
 Android App Querying TMDb API to provide information on popular, trending, upcoming movies  from [The Movie DB](https://www.themoviedb.org) having selective date filter as well.
 
@@ -14,6 +15,22 @@ Android App Querying TMDb API to provide information on popular, trending, upcom
     Once you have your TMDB key,you will need to add it in the `app` module `build.gradle`. Change the following line with your own API key and sync the project. 
 
             buildConfigField "String", "API_KEY", '"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"'
+
+## Features
+- Latest movies information.
+- Endless Scrolling (Pagination based on themoviedb.org api data)
+- Movie details (e.g. Backdrop Poster, Rating, Genres, Release Date, Overview)
+- Trailer Video for Youtube
+
+## User Guidelines
+- Upon launching, app automatically fetches first page containing 20 movies.
+- Scrolling to bottom causes app to fetch next page and new movies are appended in the list automatically.
+- Tapping on Filter button will show a Date Picker, which can be used to filter movies on basis of release date.
+- After selecting the date and taping on Ok button, will cause app to fetch the movies from the API for that date, along with pagination feature.
+- Upon selecting any movie from the list will open movie detail page.
+- Movie detail page will show, movie backdrop poster, name, rating, genres and overview.
+- Tapping on the Trailer button will go to the pre-installed Youtube app for the trailer.
+- Detail screen is collapsing, scrolling it up will hide the backdrop image.
 
 
 ### Screenshots
