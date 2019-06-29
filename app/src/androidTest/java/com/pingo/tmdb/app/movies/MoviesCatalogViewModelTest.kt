@@ -23,7 +23,17 @@ import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
 import retrofit2.Response
 
-
+/**
+ * Created By : Muhammad Ali Ansari
+ * Dated :  2019-06-27.
+ * ---------------------------------------------
+ *
+ * Testing [MoviesCatalogViewModel]. Mocking [MoviesCatalogRepoImp] to fetch results just like the API ones to test view model.
+ *
+ * @property moviesCatalogRepoImp MoviesCatalogRepoImp
+ * @property mainActivityViewModel MoviesCatalogViewModel
+ * @property MOVIES_JSON_DATA_FOR_TESTING String
+ */
 @RunWith(JUnit4::class)
 class MoviesCatalogViewModelTest {
 

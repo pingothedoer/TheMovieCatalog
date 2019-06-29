@@ -14,7 +14,7 @@ import retrofit2.Response
  * Fetches movie details and sends it to the view model
  **/
 
-class MovieDetailRepoImp(private val apiService: MovieDetailService) : MovieDetailRepo {
+open class MovieDetailRepoImp(private val apiService: MovieDetailService) : MovieDetailRepo {
 
     /**
      * Fetch movie details from THE MOVIE DB
