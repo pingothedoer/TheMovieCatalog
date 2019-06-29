@@ -55,6 +55,12 @@ Android App Querying TMDb API to provide information on popular, trending, upcom
  - [Picasso](https://square.github.io/picasso/) - Image Loading Library
  - [Mockito](https://github.com/mockito/mockitot) - Mocking Framework for Unit Testing
  - [Architecture Components](https://developer.android.com/topic/libraries/architecture) - LiveData, Databinding, ViewModels
+ 
+### Unit Tests
+
+ - Unit test for the ViewModels
+ - Instrumental test for Splash screen
+
 
 ## Authors
 
