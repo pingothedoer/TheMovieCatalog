@@ -1,5 +1,5 @@
 # TheMovieCatalog
-[![Logo](app/src/main/res/drawable-hdpi/ic_app.png)]()
+<img src="app/src/main/res/drawable-xxxhdpi/ic_app.png"  height="70">
 
 Android App Querying TMDb API to provide information on popular, trending, upcoming movies  from [The Movie DB](https://www.themoviedb.org) having selective date filter as well.
 
